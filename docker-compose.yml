@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  api:
+    container_name: "api"
+    build:
+      context: "."
+      dockerfile: "./build/dev.Dockerfile"
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./:/todo/:rw"
