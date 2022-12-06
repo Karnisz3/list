@@ -15,19 +15,8 @@ RUN docker-php-ext-install opcache zip pdo pdo_mysql && \
     docker-php-ext-enable xdebug rdkafka
 
 # Extensions configurations
-RUN echo "opcache.enable=1 \n\
-opcache.enable_cli=1 \n\
-opcache.memory_consumption=512 \n\
-opcache.interned_strings_buffer=64 \n\
-opcache.max_accelerated_files=50000 \n\
-opcache.max_wasted_percentage=15 \n\
-opcache.validate_timestamps=1 \n\
-opcache.revalidate_freq=0 \n\
-opcache.save_comments=0 \n\
-opcache.fast_shutdown=1" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini && \
-    echo "xdebug.mode=develop,debug \n\
-xdebug.client_host=host.docker.internal \n\
-xdebug.start_with_request=trigger" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+COPY ./build/docker-php-ext-opcache.ini /usr/local/etc/php/conf.d/
+COPY ./build/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/
 
 # Composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
