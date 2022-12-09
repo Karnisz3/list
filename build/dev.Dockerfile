@@ -16,6 +16,9 @@ RUN docker-php-ext-install opcache zip pdo pdo_mysql && \
     pecl install phalcon-$PHALCON_VERSION && \
     docker-php-ext-enable xdebug rdkafka phalcon
 
+# Remove build dependencies
+RUN apk remove autoconf gcc musl-dev make 
+
 # Extensions configurations
 COPY ./build/docker-php-ext-opcache.ini /usr/local/etc/php/conf.d/
 COPY ./build/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/
@@ -25,11 +28,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # User + root directory
 RUN adduser -D --no-create-home --uid 1000 dev && \
-    mkdir /todo/ && \
-    chown dev:dev /todo/
+    mkdir /terminal/ && \
+    chown dev:dev /terminal/
 
 USER dev
-WORKDIR /todo/
+WORKDIR /terminal/
 
 EXPOSE 8080
 CMD php -S 0.0.0.0:8080 -t public
