@@ -10,23 +10,12 @@ class Controller extends \Phalcon\Mvc\Controller
 {
     public function getAll(): ResponseInterface
     {
-        $content = (string)\json_encode(['no' => 'elo, trzymaj']);
-
-        $this->response->setContent($content);
-        $this->response->setContentLength(\strlen($content));
-        $this->response->setContentType('application/json');
-
-        return $this->response;
+        throw new \Exception('dlaczego nie ma 500');
+        return $this->response->setJsonContent(['no' => 'elo, trzymaj']);
     }
 
     public function createOne(): ResponseInterface
     {
-        $content = (string)\json_encode(['no' => 'elo, zrobione']);
-
-        $this->response->setContent($content);
-        $this->response->setContentLength(\strlen($content));
-        $this->response->setContentType('application/json');
-
-        return $this->response;
+        return $this->response->setJsonContent(['no' => 'elo, zrobione']);
     }
 }
