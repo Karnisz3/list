@@ -13,5 +13,4 @@ $container = (require __DIR__ . '/../config/container.php')();
 $app = new Micro($container);
 (require __DIR__ . '/../config/routes.php')($app);
 
-$response = $app->handle($_SERVER['REQUEST_URI']);
-$response->send();
+$app->handle($_SERVER['REQUEST_URI']);
