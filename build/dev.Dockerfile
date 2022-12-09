@@ -17,7 +17,7 @@ RUN docker-php-ext-install opcache zip pdo pdo_mysql && \
     docker-php-ext-enable xdebug rdkafka phalcon
 
 # Remove build dependencies
-RUN apk remove autoconf gcc musl-dev make 
+RUN apk del -r autoconf gcc musl-dev make 
 
 # Extensions configurations
 COPY ./build/docker-php-ext-opcache.ini /usr/local/etc/php/conf.d/
