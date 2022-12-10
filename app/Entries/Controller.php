@@ -10,7 +10,12 @@ class Controller extends \Phalcon\Mvc\Controller
 {
     public function getAll(): ResponseInterface
     {
-        throw new \Exception('dlaczego nie ma 500');
+        if (\rand(0, 1) === 1) {
+            throw new \Exception('RAND_IS_1');
+        } else {
+            throw new \InvalidArgumentException('RAND_IS_0');
+        }
+
         return $this->response->setJsonContent(['no' => 'elo, trzymaj']);
     }
 
