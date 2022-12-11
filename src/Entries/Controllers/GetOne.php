@@ -8,7 +8,7 @@ use Terminal\Engine\ResponseEncoding\Encoder;
 use Psr\Http\Message\ResponseInterface as response;
 use Terminal\Entries\UseCases\Queries\GetOne\Handler;
 use Psr\Http\Message\ServerRequestInterface as request;
-use Terminal\Entries\UseCases\Queries\GetOne\Contract\Query;
+use Terminal\Entries\UseCases\Queries\GetOne\Contract\Schema;
 
 class GetOne
 {
@@ -17,9 +17,9 @@ class GetOne
         private readonly Encoder $encoder
     ) {}
 
-    public function __invoke(request $request, response $response, array $args): response
+    public function __invoke(request $request, response $response): response
     {
-        $query = new Query($args['entryId']);
+        $query = Schema::createQuery($request);
 
         $result = $this->handler->handle($query);
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Terminal\Entries\UseCases\Queries\GetOne\Contract;
+namespace Terminal\Entries\UseCases\Queries\GetOne;
 
 class Query
 {

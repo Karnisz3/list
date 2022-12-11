@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Terminal\Entries\UseCases\Queries\GetAll;
 
 use Terminal\Entries\Domain\QueryRepository;
-use Terminal\Entries\UseCases\Queries\GetAll\Contract\Query;
 use Terminal\Entries\UseCases\Queries\GetAll\Contract\Result;
 
 class Handler
