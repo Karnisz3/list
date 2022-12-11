@@ -7,5 +7,5 @@ use Terminal\Entries\Controllers as entries;
 
 return function (App $app) {
     $app->get('/entries', entries\GetAll::class);
-    $app->get('/entries/{entryId:E\-\d+}', entries\GetOne::class);
+    $app->get('/entries/{entryId}', entries\GetOne::class);
 };
