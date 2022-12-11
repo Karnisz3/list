@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Terminal\Entries\Infrastructure\Repositories;
 
+use Terminal\Engine\Application\Sorting;
+use Terminal\Engine\Application\Filters;
+use Terminal\Engine\Application\Pagination;
 use Terminal\Entries\Domain\QueryRepository;
 use Terminal\Entries\Domain\QueryModel\Entry;
 
@@ -32,10 +35,37 @@ class InMemoryQueryRepository implements QueryRepository
     /**
      * @inheritDoc
      */
-    public function all(): array
+    public function all(
+        ?Pagination $pagination = null,
+        ?Sorting $sorting = null,
+        ?Filters $filters = null
+    ): array
     {
+        $inMemoryEntries = $this->entries;
+
+        // filter
+        if ($filters !== null) {
+            // not implemented yet
+        }
+
+        // sort
+        if ($sorting !== null && in_array($sorting->variable, ['id', 'title', 'createdAt'])) {
+            usort($inMemoryEntries, function (array $a1, array $a2) use ($sorting) {
+                return ($a1[$sorting->variable] <=> $a2[$sorting->variable]) * ($sorting->order === 'asc' ? 1 : -1);
+            });
+        }
+
+        // paginate
+        if ($pagination !== null && $pagination->page > 0 && $pagination->perPage > 0) {
+            $inMemoryEntries = array_slice(
+                $inMemoryEntries,
+                ($pagination->page - 1) * $pagination->perPage,
+                $pagination->perPage
+            );
+        }
+
         $entries = [];
-        foreach ($this->entries as $entry) {
+        foreach ($inMemoryEntries as $entry) {
             $entries[] = new Entry($entry['id'], $entry['title'], $entry['createdAt']);
         }
 

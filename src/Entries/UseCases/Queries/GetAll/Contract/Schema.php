@@ -11,6 +11,6 @@ class Schema
 {
     public static function createQuery(request $request): Query
     {
-        return new Query();
+        return new Query($request);
     }
 }

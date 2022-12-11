@@ -15,7 +15,10 @@ class Handler
 
     public function handle(Query $query): Result
     {
-        $allEntries = $this->entries->all();
+        $allEntries = $this->entries->all(
+            $query->pagination(),
+            $query->sorting()
+        );
 
         return Result::create($allEntries);
     }
