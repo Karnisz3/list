@@ -29,7 +29,8 @@ class Result implements QueryResult
 
         return [
             'id' => $this->entry->id,
-            'title' => $this->entry->title
+            'title' => $this->entry->title,
+            'createdAt' => $this->entry->createdAt
         ];
     }
 

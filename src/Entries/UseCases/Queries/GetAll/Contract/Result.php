@@ -27,7 +27,8 @@ class Result implements QueryResult
         foreach ($this->entries as $entry) {
             $array[] = [
                 'id' => $entry->id,
-                'title' => $entry->title
+                'title' => $entry->title,
+                'createdAt' => $entry->createdAt
             ];
         }
 
