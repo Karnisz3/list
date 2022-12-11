@@ -2,23 +2,18 @@
 
 declare(strict_types=1);
 
-use Phalcon\Mvc\Micro;
+use Slim\App;
+use GuzzleHttp\Psr7\ServerRequest;
 
-define('APP_ROOT', dirname(__DIR__));
-define('CONFIG_DIR', APP_ROOT . '/config');
+require __DIR__ . '/../vendor/autoload.php';
 
-// register autoloader
-(require CONFIG_DIR . '/autoload.php')(APP_ROOT);
+/** @var App $app */
+$app = (require __DIR__ . '/../app/bootstrap.php')(__DIR__ . '/..', 'dev');
 
-// create di container
-$di = (require CONFIG_DIR . '/container.php')();
-// instantiate application
-$app = new Micro($di);
-
+// define middleware
+(require __DIR__ . '/../app/middleware.php')($app);
 // define routes
-(require CONFIG_DIR . '/routes.php')($app);
-// ser error handler
-(require CONFIG_DIR . '/error_handling.php')($app);
+(require __DIR__ . '/../app/routes.php')($app);
 
-//run application
-$app->handle($_SERVER['REQUEST_URI']);
+// run application
+$app->run(ServerRequest::fromGlobals());
