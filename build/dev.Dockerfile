@@ -3,7 +3,6 @@ FROM php:8.1-alpine
 # Libraries versions
 ARG XDEBUG_VERSION=3.1.6
 ARG RDKAFKA_VERSION=6.0.3
-ARG PHALCON_VERSION=5.1.2
 ARG COMPOSER_VERSION=2.2
 
 # Extensions dependencies
@@ -13,8 +12,7 @@ RUN apk update && apk add libzip-dev librdkafka-dev autoconf gcc musl-dev make
 RUN docker-php-ext-install opcache zip pdo pdo_mysql && \
     pecl install xdebug-$XDEBUG_VERSION && \
     pecl install rdkafka-$RDKAFKA_VERSION && \
-    pecl install phalcon-$PHALCON_VERSION && \
-    docker-php-ext-enable xdebug rdkafka phalcon
+    docker-php-ext-enable xdebug rdkafka
 
 # Remove build dependencies
 RUN apk del -r autoconf gcc musl-dev make 
