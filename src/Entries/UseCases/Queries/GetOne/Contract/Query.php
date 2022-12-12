@@ -4,21 +4,27 @@ declare(strict_types=1);
 
 namespace Terminal\Entries\UseCases\Queries\GetOne\Contract;
 
-use Psr\Http\Message\ServerRequestInterface;
-use Terminal\Entries\UseCases\Queries\GetOne\Query;
+use Psr\Http\Message\ServerRequestInterface as request;
 
-class Schema
+class Query
 {
-    public static function createQuery(ServerRequestInterface $request): Query
-    {
-        $id = $request->getAttribute('entryId');
-        self::validateEentryId($id);
+    private function __construct(
+        public readonly string $id
+    ) {}
 
-        return new Query($id);
+    public static function create(request $request): Query
+    {
+        self::validateRequest($request);
+
+        $id = $request->getAttribute('entryId');
+
+        return new self($id);
     }
 
-    private static function validateEentryId(string $entryId): void
+    private static function validateRequest(request $request): void
     {
+        $entryId = (string)$request->getAttribute('entryId');
+
         if ($entryId === '') {
             throw new \InvalidArgumentException('empty:entryId', 400);
         }

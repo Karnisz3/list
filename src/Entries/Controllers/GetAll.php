@@ -8,7 +8,7 @@ use Terminal\Engine\ResponseEncoding\Encoder;
 use Psr\Http\Message\ResponseInterface as response;
 use Terminal\Entries\UseCases\Queries\GetAll\Handler;
 use Psr\Http\Message\ServerRequestInterface as request;
-use Terminal\Entries\UseCases\Queries\GetAll\Contract\Schema;
+use Terminal\Entries\UseCases\Queries\GetAll\Contract\Query;
 
 class GetAll
 {
@@ -19,7 +19,7 @@ class GetAll
 
     public function __invoke(request $request, response $response): response
     {
-        $query = Schema::createQuery($request);
+        $query = Query::create($request);
 
         $result = $this->handler->handle($query);
 
