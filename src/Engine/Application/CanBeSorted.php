@@ -12,7 +12,15 @@ trait CanBeSorted
 
     protected static function extractSorting(request $request): void
     {
-        $sortString = $request->getParsedBody()['sort'];
+        if (!\is_array($requestBody = $request->getParsedBody())) {
+            return;
+        }
+
+        if (($sortString = $requestBody['sort']) === null) {
+            return;
+        }
+
+
         list($variable, $order) = explode(':', $sortString);
         self::$sorting = new Sorting($variable, $order);
     }
